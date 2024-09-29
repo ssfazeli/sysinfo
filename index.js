@@ -6,7 +6,7 @@ const port = process.env.PORT || 3000;
 app.use(express.json());
 
 // اتصال به MongoDB
-mongoose.connect('mongodb+srv://ssajadf:vdVUvbDpgK9ZRjqk@cluster0.pqmeq.mongodb.net/hardwaredb?retryWrites=true&w=majority&appName=Cluster0', {
+mongoose.connect(process.env.MONGODB_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true
 }).then(() => console.log('Connected to MongoDB'))
@@ -18,6 +18,11 @@ const HardwareInfo = mongoose.model('HardwareInfo', new mongoose.Schema({
   ram: String,
   os: String
 }));
+
+// مسیر اصلی (Root Route)
+app.get('/', (req, res) => {
+  res.send('Welcome to the Hardware Info Collector!');
+});
 
 // ذخیره اطلاعات سخت افزاری
 app.post('/submit', async (req, res) => {
