@@ -19,9 +19,27 @@ const HardwareInfo = mongoose.model('HardwareInfo', new mongoose.Schema({
   os: String
 }));
 
-// مسیر اصلی (Root Route)
+// صفحه اصلی با فرم HTML
 app.get('/', (req, res) => {
-  res.send('Welcome to the Hardware Info Collector!');
+  res.send(`
+    <html>
+      <head>
+        <title>Hardware Info Collector</title>
+      </head>
+      <body>
+        <h1>Submit your hardware info</h1>
+        <form action="/submit" method="POST">
+          <label>CPU:</label>
+          <input type="text" name="cpu" required><br>
+          <label>RAM:</label>
+          <input type="text" name="ram" required><br>
+          <label>Operating System:</label>
+          <input type="text" name="os" required><br>
+          <button type="submit">Submit</button>
+        </form>
+      </body>
+    </html>
+  `);
 });
 
 // ذخیره اطلاعات سخت افزاری
